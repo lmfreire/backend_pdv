@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
-import { Empresa } from '../empresa/empresa.entity';
 import { User } from './user.entity';
+import getTenantRepository from 'src/utils/get.tenant.repository';
 var md5 = require('md5');
 
 @Injectable()
@@ -13,7 +13,7 @@ export class UserService {
     ){}
 
     async loginUser(tentat: string, data : {login: string, password: string}){
-        const userRepository = await this.getTenantRepository(tentat, User);
+        const userRepository = await getTenantRepository(tentat, User, this.getTenantDataSource);
 
         data.password = md5(data.password)
 
@@ -25,8 +25,5 @@ export class UserService {
         return user
     }
 
-    async getTenantRepository<T>(tenantId: string, entity: new () => T) {
-    const tenantDataSource = await this.getTenantDataSource(tenantId);
-    return tenantDataSource.getRepository(entity);
-    }
+    
 }
