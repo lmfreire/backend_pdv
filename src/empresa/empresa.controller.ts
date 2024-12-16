@@ -9,22 +9,8 @@ export class EmpresaController {
         private readonly empresaService: EmpresaService
     ){}
 
-    @Get()
+    @Get('empresas')
     async getEmpresas(){
         return await this.empresaService.findEmpresas();
     }
-
-    @Get('login')
-    async Login(){
-        return await this.empresaService.findEmpresaByCodigo('001');
-    }
-
-    // @Get('user')
-    // async findAll(@Req() request: Request) {
-    //     const tenantId = request['tenantId'];
-
-    //     const userRepository = await this.empresaService.getTenantRepository(tenantId, User);
-        
-    //     return userRepository.find();
-    // }
 }

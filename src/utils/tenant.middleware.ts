@@ -8,14 +8,15 @@ export class TenantMiddleware implements NestMiddleware {
         private readonly empresaService: EmpresaService
     ){}
     async use(req: Request, res: Response, next: NextFunction) {
-    const tenantId = req.headers['x-tenant-id'] as string; // Pode ser via subdomínio, parâmetro, etc.
-    if (!tenantId) {
-        throw new Error('Tenant ID is required');
-    }
 
-    const tenantName = await this.empresaService.findEmpresaByCodigo(tenantId);
-    
-    req['tenantId'] = tenantName.nm_db;
-    next();
+        const tenantId = req.headers['x-tenant-id'] as string;
+        if (!tenantId) {
+            throw new Error('Tenant ID is required');
+        }
+
+        const tenantName = await this.empresaService.findEmpresaByCodigo(tenantId);
+        
+        req['tenantId'] = tenantName.nm_db;
+        next();
     }
 }

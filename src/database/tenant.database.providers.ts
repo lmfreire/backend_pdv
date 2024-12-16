@@ -10,11 +10,11 @@ export const tenantDatabaseProviders: Provider = {
             if (!dataSourceMap.has(tenantId)) {
                 const dataSource = new DataSource({
                     type: 'mysql',
-                    host: '165.227.189.227',
-                    port: 3306,
-                    username: 'root',
-                    password: '@dmlemarq2019',
-                    database: `${tenantId}`, // Banco dinâmico baseado no tenantId
+                    host: process.env.DATABASE_HOST,
+                    port: parseInt(process.env.DATABASE_PORT),
+                    username: process.env.DATABASE_USERNAME,
+                    password: process.env.DATABASE_PASSWORD,
+                    database: `${tenantId}`,
                     entities: [__dirname + '/../**/*.entity{.ts,.js}'],
                     synchronize: false,
                 });
