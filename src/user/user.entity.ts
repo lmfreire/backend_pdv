@@ -20,4 +20,7 @@ export class User {
 
     @Column()
     email: string;
+
+    @Column()
+    cd_rep: string;
 }

@@ -17,4 +17,13 @@ export class NfceseqService {
         return await repository.find()
     }
 
+    async bloquearTerminal(tenant: string, data: {id_terminal: string; user_login: string}){
+        const repository: Repository<Nfceseq> = await getTenantRepository(tenant, Nfceseq, this.getTenantDataSource);
+
+        await repository.update(data.id_terminal, {
+            login_ativo : data.user_login,
+            sn_ativo: '1'
+        })        
+    }
+
 }
