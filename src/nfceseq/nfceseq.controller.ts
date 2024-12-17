@@ -20,4 +20,10 @@ export class NfceseqController {
         return await this.nfceseqService.bloquearTerminal(tenantId, data);
     }
 
+    @Get('terminal')
+    async getTerminal(@Req() req: Request){
+        const tenantId = req['tenantId'];
+        return await this.nfceseqService.listagemTerminal(tenantId);
+    }
+
 }
