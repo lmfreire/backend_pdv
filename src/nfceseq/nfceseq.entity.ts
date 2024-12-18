@@ -20,4 +20,7 @@ export class Nfceseq {
 
     @Column()
     login_ativo: string;
+
+    @Column()
+    cd_rep: string;
 }

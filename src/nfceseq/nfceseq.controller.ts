@@ -1,5 +1,7 @@
-import { Body, Controller, Get, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, HttpStatus, Post, Req, Res } from '@nestjs/common';
 import { NfceseqService } from './nfceseq.service';
+import { Response } from 'express';
+import { ErrorResponse } from 'src/utils/error.resource';
 
 @Controller('nfceseq')
 export class NfceseqController {
@@ -15,9 +17,20 @@ export class NfceseqController {
     }
 
     @Post('bloquear_terminal')
-    async bloquearTerminal(@Req() req: Request, @Body() data: {id_terminal: string, user_login: string}){
+    async bloquearTerminal(
+        @Req() req: Request,
+        @Res() res: Response,
+        @Body() data: {id_terminal: string, user_login: string}
+    ){
         const tenantId = req['tenantId'];
-        return await this.nfceseqService.bloquearTerminal(tenantId, data);
+        const result =  await this.nfceseqService.bloquearTerminal(tenantId, data);
+
+        if(result.isError()){
+            const error = result.error
+            return res.status(error.status).send(new ErrorResponse(error.message));
+        }
+
+        return res.status(HttpStatus.ACCEPTED).send();
     }
 
     @Get('terminal')
