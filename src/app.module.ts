@@ -7,11 +7,12 @@ import { TenantMiddleware } from './utils/tenant.middleware';
 import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { NfceseqModule } from './nfceseq/nfceseq.module';
+import { MaterialModule } from './material/material.module';
 
 @Module({
   imports: [DatabaseModule, EmpresaModule, UserModule, ConfigModule.forRoot({
     isGlobal: true,
-  }), NfceseqModule],
+  }), NfceseqModule, MaterialModule],
   controllers: [AppController],
   providers: [AppService],
 })
