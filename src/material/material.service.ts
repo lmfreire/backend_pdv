@@ -13,6 +13,12 @@ export class MaterialService {
     async getMaterial(tentat: string){
         const repository: Repository<Material> = await getTenantRepository(tentat, Material, this.getTenantDataSource);
 
+        return await repository.find();
+    }
+
+    async getProdutos(tentat: string){
+        const repository: Repository<Material> = await getTenantRepository(tentat, Material, this.getTenantDataSource);
+
         return await repository.find({
             where: [
                 {
