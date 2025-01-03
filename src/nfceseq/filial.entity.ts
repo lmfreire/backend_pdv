@@ -8,4 +8,7 @@ export class Filial {
 
     @Column()
     nm_fil: string;
+    
+    @Column()
+    cd_loja: string;
 }

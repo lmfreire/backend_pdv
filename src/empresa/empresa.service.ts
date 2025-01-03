@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, Repository } from 'typeorm';
 import { Empresa } from './empresa.entity';
+import { Filial } from '../nfceseq/filial.entity';
+import getTenantRepository from '../utils/get.tenant.repository';
 
 @Injectable()
 export class EmpresaService {
@@ -21,9 +23,4 @@ export class EmpresaService {
             cd_empresa: codigo
         });
     }
-
-    // async getTenantRepository<T>(tenantId: string, entity: new () => T) {
-    // const tenantDataSource = await this.getTenantDataSource(tenantId);
-    // return tenantDataSource.getRepository(entity);
-    // }
 }

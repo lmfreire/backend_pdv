@@ -8,11 +8,12 @@ import { UserModule } from './user/user.module';
 import { ConfigModule } from '@nestjs/config';
 import { NfceseqModule } from './nfceseq/nfceseq.module';
 import { MaterialModule } from './material/material.module';
+import { EmpresaOrgModule } from './empresa_org/empresa_org.module';
 
 @Module({
   imports: [DatabaseModule, EmpresaModule, UserModule, ConfigModule.forRoot({
     isGlobal: true,
-  }), NfceseqModule, MaterialModule],
+  }), NfceseqModule, MaterialModule, EmpresaOrgModule],
   controllers: [AppController],
   providers: [AppService],
 })
