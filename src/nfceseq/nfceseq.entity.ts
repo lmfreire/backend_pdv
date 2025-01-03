@@ -14,6 +14,9 @@ export class Nfceseq {
 
     @Column()
     nr_serie: string;
+    
+    @Column()
+    nr_nfce: string;
 
     @Column()
     id_paygo: string;

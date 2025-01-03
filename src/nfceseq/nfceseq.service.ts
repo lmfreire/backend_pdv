@@ -68,4 +68,20 @@ export class NfceseqService {
         return nfceseq        
     }
 
+    async getNfceAtual(tentat: string, data: {nr_serie: string; cd_fil: string;}){
+        const repository: Repository<Nfceseq> = await getTenantRepository(tentat, Nfceseq, this.getTenantDataSource);
+
+        let retorno = await repository.findOne({where: {
+            nr_serie: data.nr_serie,
+            cd_fil: data.cd_fil
+        }})
+
+        if (retorno && retorno.nr_nfce != null) {
+            retorno.nr_nfce = String(retorno.nr_nfce).padStart(9, '0');
+        }
+        
+        return {"nr_nfce": retorno.nr_nfce} 
+    }
+
+
 }

@@ -15,6 +15,12 @@ export class NfceseqController {
         const tenantId = req['tenantId'];
         return await this.nfceseqService.getNfce(tenantId);
     }
+    @Post('nfce_atual')
+    async getNfceAtual(@Req() req: Request, @Body() data: {nr_serie: string; cd_fil: string;}){
+        const tenantId = req['tenantId'];
+        
+        return await this.nfceseqService.getNfceAtual(tenantId, data);
+    }
 
     @Post('bloquear_terminal')
     async bloquearTerminal(
