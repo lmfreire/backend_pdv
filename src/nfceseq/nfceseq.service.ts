@@ -68,8 +68,8 @@ export class NfceseqService {
         return nfceseq        
     }
 
-    async getNfceAtual(tentat: string, data: {nr_serie: string; cd_fil: string;}){
-        const repository: Repository<Nfceseq> = await getTenantRepository(tentat, Nfceseq, this.getTenantDataSource);
+    async getNfceAtual(tenant: string, data: {nr_serie: string; cd_fil: string;}){
+        const repository: Repository<Nfceseq> = await getTenantRepository(tenant, Nfceseq, this.getTenantDataSource);
 
         let retorno = await repository.findOne({where: {
             nr_serie: data.nr_serie,
@@ -81,6 +81,24 @@ export class NfceseqService {
         }
         
         return {"nr_nfce": retorno.nr_nfce} 
+    }
+
+    async deslogar(tenant: string, data: {nr_serie: string; cd_fil: string; usr_login: string}){
+        const repository: Repository<Nfceseq> = await getTenantRepository(tenant, Nfceseq, this.getTenantDataSource);
+
+        let retorno = await repository.findOne({where: {
+            nr_serie: data.nr_serie,
+            cd_fil: data.cd_fil
+        }})
+
+        if (retorno && retorno.login_ativo != data.usr_login) {
+            return new Result(null, 
+                new HttpError(`Outro Usuário está ativo neste momento ou Terminal bloqueado momentaneamente:`, HttpStatus.CONFLICT)
+            )
+        }
+        
+        return new Result(retorno,null);
+
     }
 
 
