@@ -6,6 +6,7 @@ import { Filial } from './filial.entity';
 import { Repres } from './repres.entity';
 import { Result } from 'src/utils/result';
 import { HttpError } from 'src/utils/httpError';
+import { Nfce } from './nfce.entity';
 
 @Injectable()
 export class NfceseqService {
@@ -102,4 +103,24 @@ export class NfceseqService {
     }
 
 
+    async atualizarNovaNfceseq(tenant: string, data: {nr_serie: string; cd_fil: string; nr_nfce: string;}){
+        const repository: Repository<Nfce> = await getTenantRepository(tenant, Nfce, this.getTenantDataSource);        
+
+        let nfce = await repository.findOne({where: {
+            nr_serie: data.nr_serie,
+            cd_fil: data.cd_fil,
+            nr_nfce: data.nr_nfce
+        }})
+
+        if (nfce && Number(nfce.sn_enc) != 0) {
+            const repository: Repository<Nfceseq> = await getTenantRepository(tenant, Nfceseq, this.getTenantDataSource);
+            nfce.nr_nfce = String(Number(data.nr_nfce) + 1).padStart(9, '0');
+            await repository.update(
+                {nr_serie: data.nr_serie, cd_fil: data.cd_fil},
+                {nr_nfce: String(Number(data.nr_nfce) + 1).padStart(9, '0')}
+            )
+        }
+
+        return nfce
+    }
 }

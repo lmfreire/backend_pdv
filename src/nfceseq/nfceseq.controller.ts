@@ -62,4 +62,16 @@ export class NfceseqController {
         return res.status(HttpStatus.ACCEPTED).send();
     }
 
+    @Post('atualizar_nfceseq')
+    async atualizarNovaNfceseq(
+        @Req() req: Request,
+        @Body() data: {nr_serie: string; cd_fil: string; nr_nfce: string;}
+    ){
+        const tenantId = req['tenantId'];
+        const result = await this.nfceseqService.atualizarNovaNfceseq(tenantId, data);
+
+        return result
+
+    }
+
 }
