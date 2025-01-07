@@ -9,11 +9,12 @@ import { ConfigModule } from '@nestjs/config';
 import { NfceseqModule } from './nfceseq/nfceseq.module';
 import { MaterialModule } from './material/material.module';
 import { EmpresaOrgModule } from './empresa_org/empresa_org.module';
+import { ClienteModule } from './cliente/cliente.module';
 
 @Module({
   imports: [DatabaseModule, EmpresaModule, UserModule, ConfigModule.forRoot({
     isGlobal: true,
-  }), NfceseqModule, MaterialModule, EmpresaOrgModule],
+  }), NfceseqModule, MaterialModule, EmpresaOrgModule, ClienteModule],
   controllers: [AppController],
   providers: [AppService],
 })
