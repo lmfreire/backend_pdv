@@ -1,4 +1,4 @@
-import { Body, Controller, Post, Req } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Req } from '@nestjs/common';
 import { EmpresaOrgService } from './empresa_org.service';
 
 @Controller('empresa-org')
@@ -8,14 +8,14 @@ export class EmpresaOrgController {
         private readonly empresaOrgService: EmpresaOrgService
     ){}
 
-    @Post('vendedor')
-    async getVendedores(@Req() req: Request, @Body() data: {cd_fil: string}){
+    @Get('vendedor/:cd_fil')
+    async getVendedores(@Req() req: Request, @Param('cd_fil') cd_fil: string){
         const tenantId = req['tenantId'];
-        return await this.empresaOrgService.tipoVendedor(tenantId, data);
+        return await this.empresaOrgService.tipoVendedor(tenantId, cd_fil);
     }
-    @Post('estoque')
-    async getEstoque(@Req() req: Request, @Body() data: {cd_fil: string}){
+    @Get('estoque/:cd_fil')
+    async getEstoque(@Req() req: Request, @Param('cd_fil') cd_fil: string){
         const tenantId = req['tenantId'];
-        return await this.empresaOrgService.tipoEstoque(tenantId, data);
+        return await this.empresaOrgService.tipoEstoque(tenantId, cd_fil);
     }
 }
