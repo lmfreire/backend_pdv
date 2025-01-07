@@ -8,4 +8,7 @@ export class Empresa_org {
 
     @Column()
     sn_vend: string;
+
+    @Column()
+    sn_estoque: string;
 }

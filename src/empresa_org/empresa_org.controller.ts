@@ -13,4 +13,9 @@ export class EmpresaOrgController {
         const tenantId = req['tenantId'];
         return await this.empresaOrgService.tipoVendedor(tenantId, data);
     }
+    @Post('estoque')
+    async getEstoque(@Req() req: Request, @Body() data: {cd_fil: string}){
+        const tenantId = req['tenantId'];
+        return await this.empresaOrgService.tipoEstoque(tenantId, data);
+    }
 }
