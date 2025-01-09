@@ -73,5 +73,16 @@ export class NfceseqController {
         return result
 
     }
+    @Post('nfcepag')
+    async buscarNfcepag(
+        @Req() req: Request,
+        @Body() data: {nr_nfce: string; cd_fil: string; nr_serie: string;}
+    ){
+        const tenantId = req['tenantId'];
+        const result = await this.nfceseqService.buscarNfcepag(tenantId, data);
+
+        return result
+
+    }
 
 }

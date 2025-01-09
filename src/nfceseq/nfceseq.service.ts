@@ -7,6 +7,7 @@ import { Repres } from './repres.entity';
 import { Result } from 'src/utils/result';
 import { HttpError } from 'src/utils/httpError';
 import { Nfce } from './nfce.entity';
+import { Nfcepag } from './nfcepag.entity';
 
 @Injectable()
 export class NfceseqService {
@@ -122,5 +123,17 @@ export class NfceseqService {
         }
 
         return nfce
+    }
+
+    async buscarNfcepag(tenant: string, data: {nr_nfce: string; cd_fil: string; nr_serie: string;}){
+        const repository: Repository<Nfcepag> = await getTenantRepository(tenant, Nfcepag, this.getTenantDataSource); 
+    
+        let retorno = await repository.findOne({where: {
+            nr_nfce: data.nr_nfce,
+            cd_fil: data.cd_fil,
+            nr_serie: data.nr_serie
+        }})
+
+        return retorno
     }
 }
