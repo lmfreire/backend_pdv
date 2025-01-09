@@ -60,4 +60,17 @@ export class MaterialService {
               AND( material.tp_item = '00' OR material.tp_item = '04') 
           `)      
     }
+    async getProdutoPorCodSimilar(tentat: string, cd_similar: string){
+        const repository: Repository<Material> = await getTenantRepository(tentat, Material, this.getTenantDataSource);
+
+        return await repository.query(`
+            SELECT 
+                material.nm_mat, grade.vl_prazo, material.cd_cfop1, material.cd_sita, material.cd_sitb, material.cd_pis, material.cd_cofins, material.sn_fora, grade.cd_mat 
+            FROM 
+                grade 
+            LEFT JOIN material ON material.cd_mat = grade.cd_mat 
+            WHERE 
+                grade.cd_similar = ${cd_similar}
+          `)      
+    }
 }
