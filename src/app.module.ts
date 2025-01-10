@@ -12,11 +12,12 @@ import { EmpresaOrgModule } from './empresa_org/empresa_org.module';
 import { ClienteModule } from './cliente/cliente.module';
 import { EstoqueModule } from './estoque/estoque.module';
 import { MaterialsacModule } from './materialsac/materialsac.module';
+import { MaterialPrecosModule } from './material_precos/material_precos.module';
 
 @Module({
   imports: [DatabaseModule, EmpresaModule, UserModule, ConfigModule.forRoot({
     isGlobal: true,
-  }), NfceseqModule, MaterialModule, EmpresaOrgModule, ClienteModule, EstoqueModule, MaterialsacModule],
+  }), NfceseqModule, MaterialModule, EmpresaOrgModule, ClienteModule, EstoqueModule, MaterialsacModule, MaterialPrecosModule],
   controllers: [AppController],
   providers: [AppService],
 })

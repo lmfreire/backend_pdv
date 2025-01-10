@@ -18,7 +18,6 @@ export class MaterialsacController {
     ){
         const tenantId = req['tenantId'];
         
-        //return await this.materialsacService.materiaisComposicao(tenantId, data);
 
         const result = await this.materialsacService.materiaisComposicao(tenantId, data);
 
