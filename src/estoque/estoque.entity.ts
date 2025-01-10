@@ -17,4 +17,7 @@ export class Estoque {
     
     @Column()
     cd_arm: string;
+    
+    @Column()
+    qt_est: string;
 }

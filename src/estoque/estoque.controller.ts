@@ -25,6 +25,6 @@ export class EstoqueController {
             return res.status(error.status).send(new ErrorResponse(error.message));
         }
 
-        return res.status(HttpStatus.ACCEPTED).send();
+        return res.status(HttpStatus.ACCEPTED).send(result.value);
     }
 }
