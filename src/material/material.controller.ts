@@ -39,4 +39,10 @@ export class MaterialController {
         return await this.materialService.getMaterialByCdMat(tenantId, cd_mat);
     }
 
+    @Get('produto_similar/:cd_gtin')
+    async getProdutoPorCdGtin(@Req() req: Request, @Param('cd_gtin') cd_gtin: string){
+        const tenantId = req['tenantId']
+        return await this.materialService.getProdutoPorCdGtin(tenantId, cd_gtin);
+    }
+
 }

@@ -111,4 +111,25 @@ export class MaterialService {
 				kititens.cd_kit = ${cd_kit}
           `)      
     }
+
+    async getProdutoPorCdGtin(tentat: string, cd_gtin: string){
+        const repository: Repository<Kititens> = await getTenantRepository(tentat, Kititens, this.getTenantDataSource);
+
+        return await repository.query(`
+            SELECT
+                material.nm_mat, 
+                grade.cd_mat, 
+                grade.vl_prazo, 
+                material.cd_cfop1, 
+                material.cd_sita, 
+                material.cd_sitb, 
+                material.cd_pis, 
+                material.cd_cofins, 
+                material.sn_fora, 
+                grade.cd_similar
+            FROM grade
+            LEFT JOIN material ON material.cd_mat = grade.cd_mat
+            WHERE grade.cd_gtin = ${cd_gtin}
+          `)      
+    }
 }
