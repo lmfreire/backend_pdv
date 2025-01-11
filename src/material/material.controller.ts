@@ -14,6 +14,12 @@ export class MaterialController {
         const tenantId = req['tenantId']
         return await this.materialService.getMaterial(tenantId);
     }
+    
+    @Get(':cd_gtin')
+    async getMaterialByCdGtin(@Req() req: Request, @Param('cd_gtin') cd_gtin: string){
+        const tenantId = req['tenantId']
+        return await this.materialService.getMaterialByCdGtin(tenantId, cd_gtin);
+    }
 
     @Get('produtos')
     async getProdutos(@Req() req: Request){

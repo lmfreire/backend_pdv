@@ -16,6 +16,16 @@ export class MaterialService {
 
         return await repository.find();
     }
+    
+    async getMaterialByCdGtin(tentat: string, cd_gtin: string){
+        const repository: Repository<Material> = await getTenantRepository(tentat, Material, this.getTenantDataSource);
+
+        return await repository.findOne({
+            where: {
+                cd_gtin
+            }
+        });
+    }
 
     async getProdutos(tentat: string){
         const repository: Repository<Material> = await getTenantRepository(tentat, Material, this.getTenantDataSource);
