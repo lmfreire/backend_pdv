@@ -2,6 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DataSource, Not, Repository } from 'typeorm';
 import { Material } from './material.entity';
 import getTenantRepository from 'src/utils/get.tenant.repository';
+import { Kititens } from './material.entity copy';
 
 @Injectable()
 export class MaterialService {
@@ -85,5 +86,29 @@ export class MaterialService {
 
         
         return result
+    }
+
+    async getKitByCdKit(tentat: string, cd_kit: string){
+        const repository: Repository<Kititens> = await getTenantRepository(tentat, Kititens, this.getTenantDataSource);
+
+        return await repository.query(`
+            SELECT
+				kititens.cd_mat,
+				kititens.qt_prod,
+				kititens.vl_unit,
+				material.nm_unid,
+				material.nm_mat,
+				material.cd_cfop1,
+				material.cd_sita,
+				material.cd_sitb,
+				material.cd_pis,
+				material.cd_cofins,
+				material.sn_fora
+			FROM 
+				kititens
+			LEFT JOIN material ON kititens.cd_mat = material.cd_mat
+			WHERE 
+				kititens.cd_kit = ${cd_kit}
+          `)      
     }
 }
