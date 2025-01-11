@@ -32,4 +32,22 @@ export class Material {
 
     @Column()
     tp_item: string;
+
+    @Column()
+    cd_cfop1: string;
+
+    @Column()
+    cd_sita: string;
+
+    @Column()
+    cd_sitb: string;
+
+    @Column()
+    cd_pis: string;
+
+    @Column()
+    cd_cofins: string;
+    
+    @Column()
+    sn_kit: string;
 }

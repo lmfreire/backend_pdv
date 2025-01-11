@@ -26,5 +26,10 @@ export class MaterialController {
         const tenantId = req['tenantId']
         return await this.materialService.getProdutoPorCodSimilar(tenantId, cd_similar);
     }
+    @Get(':cd_mat')
+    async getMaterialByCdMat(@Req() req: Request, @Param('cd_mat') cd_mat: string){
+        const tenantId = req['tenantId']
+        return await this.materialService.getMaterialByCdMat(tenantId, cd_mat);
+    }
 
 }

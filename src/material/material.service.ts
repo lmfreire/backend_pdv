@@ -73,4 +73,17 @@ export class MaterialService {
                 grade.cd_similar = ${cd_similar}
           `)      
     }
+
+    async getMaterialByCdMat(tentat: string, cd_mat: string){
+        const repository: Repository<Material> = await getTenantRepository(tentat, Material, this.getTenantDataSource);
+
+        const result =  await repository.find({
+            where: {
+                cd_mat
+            }
+        })
+
+        
+        return result
+    }
 }
