@@ -56,4 +56,7 @@ export class Material {
     
     @Column()
     cd_cfop_nfce: string;
+    
+    @Column()
+    ft_unid: string;
 }

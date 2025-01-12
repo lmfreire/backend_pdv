@@ -32,4 +32,7 @@ export class Grade {
 
     @Column()
     tp_item: string;
+
+    @Column()
+    qt_emb: string;
 }

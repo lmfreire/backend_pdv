@@ -44,4 +44,7 @@ export class NfceItem {
     
     @Column()
     cd_eantrib: string;
+    
+    @Column()
+    cd_similar: string;
 }
