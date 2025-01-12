@@ -2,6 +2,7 @@ import { Body, Controller, Get, HttpStatus, Post, Req, Res } from '@nestjs/commo
 import { NfceseqService } from './nfceseq.service';
 import { Response } from 'express';
 import { ErrorResponse } from 'src/utils/error.resource';
+import { CreateNfceDTO } from './nfce.dto';
 
 @Controller('nfceseq')
 export class NfceseqController {
@@ -11,9 +12,9 @@ export class NfceseqController {
     ){}
 
     @Get()
-    async getNfce(@Req() req: Request){
+    async getNfceSeq(@Req() req: Request){
         const tenantId = req['tenantId'];
-        return await this.nfceseqService.getNfce(tenantId);
+        return await this.nfceseqService.getNfceSeq(tenantId);
     }
     @Post('nfce_atual')
     async getNfceAtual(@Req() req: Request, @Body() data: {nr_serie: string; cd_fil: string;}){
@@ -80,6 +81,30 @@ export class NfceseqController {
     ){
         const tenantId = req['tenantId'];
         const result = await this.nfceseqService.buscarNfcepag(tenantId, data);
+
+        return result
+
+    }
+    
+    @Post('existe_nfce_venda')
+    async verificarNfceExisteVenda(
+        @Req() req: Request,
+        @Body() data: {nr_nfce: string; cd_fil: string; nr_serie: string;}
+    ){
+        const tenantId = req['tenantId'];
+        const result = await this.nfceseqService.verificarNfceExisteVenda(tenantId, data);
+
+        return result
+
+    }
+
+    @Post('inserir_nfce')
+    async inserirNfce(
+        @Req() req: Request,
+        @Body() data: CreateNfceDTO
+    ){
+        const tenantId = req['tenantId'];
+        const result = await this.nfceseqService.inserirNfce(tenantId, data);
 
         return result
 

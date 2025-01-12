@@ -8,6 +8,8 @@ import { Result } from 'src/utils/result';
 import { HttpError } from 'src/utils/httpError';
 import { Nfce } from './nfce.entity';
 import { Nfcepag } from './nfcepag.entity';
+import { CreateNfceDTO } from './nfce.dto';
+import FormatDate from '../utils/formatDate';
 
 @Injectable()
 export class NfceseqService {
@@ -17,7 +19,7 @@ export class NfceseqService {
         private readonly getTenantDataSource: (tenantId: string) => Promise<DataSource>
     ){}
 
-    async getNfce(tentat: string){
+    async getNfceSeq(tentat: string){
         const repository: Repository<Nfceseq> = await getTenantRepository(tentat, Nfceseq, this.getTenantDataSource);
 
         return await repository.find()
@@ -135,5 +137,34 @@ export class NfceseqService {
         }})
 
         return retorno
+    }
+
+    async verificarNfceExisteVenda(tenant: string, data: {nr_nfce: string; cd_fil: string; nr_serie: string;}){
+        const repository: Repository<Nfce> = await getTenantRepository(tenant, Nfce, this.getTenantDataSource); 
+    
+        const retorno = await repository.findOne({where: {
+            nr_nfce: data.nr_nfce,
+            cd_fil: data.cd_fil,
+            nr_serie: data.nr_serie
+        }})
+
+        return {
+            "existe_venda" : retorno? true : false
+        };
+    }
+
+    async inserirNfce(tenant: string, data: CreateNfceDTO){
+        const repository: Repository<Nfce> = await getTenantRepository(tenant, Nfce, this.getTenantDataSource); 
+    
+        const result = await repository.insert({
+            nr_nfce: data.nr_nfce,
+            cd_fil: data.cd_fil,
+            nr_serie: data.nr_serie,
+            cd_vend: data.cd_vend ? data.cd_vend : null ,
+            dt_emis: FormatDate(new Date()),
+            usuario: data.usuario
+        })
+        
+        return result.identifiers[0];
     }
 }

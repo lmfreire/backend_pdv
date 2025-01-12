@@ -17,4 +17,13 @@ export class Nfce {
     
     @Column()
     nr_serie: string;
+    
+    @Column()
+    cd_vend: string;
+    
+    @Column()
+    dt_emis: string;
+    
+    @Column()
+    usuario: string;
 }
