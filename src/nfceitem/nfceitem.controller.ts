@@ -2,6 +2,7 @@ import { Body, Controller, Post, Req } from '@nestjs/common';
 import { NfceitemService } from './nfceitem.service';
 import { BuscaPvItemDTO, NfceItemDTO } from './pvitem.dto';
 import { ProdutoDTO } from './produto.dto';
+import { NotaDTO } from './nota.dto';
 
 @Controller('nfceitem')
 export class NfceitemController {
@@ -29,4 +30,15 @@ export class NfceitemController {
         return await this.nfceitemService.inserirItens(tenantId, data);
 
     }
+
+    @Post('atualiza_nota')
+    async atualizarNota(
+        @Req() req: Request,
+        @Body() data: NotaDTO 
+    ) {
+        const tenantId = req['tenantId'];
+        return await this.nfceitemService.atualizarNota(tenantId, data);
+
+    }
+
 }

@@ -26,4 +26,10 @@ export class Nfce {
     
     @Column()
     usuario: string;
+    
+    @Column()
+    cd_cfop: string;
+    
+    @Column()
+    natoper: string;
 }

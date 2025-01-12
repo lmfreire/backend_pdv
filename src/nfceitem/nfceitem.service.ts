@@ -9,6 +9,9 @@ import { Nfped } from './nfped.entity';
 import { KitItensDTO, MaterialProdutoDTO, ProdutoDTO } from './produto.dto';
 import { Grade } from '../material/grade.entity';
 import { Kititens } from '../material/material.entity copy';
+import { Nfce } from '../nfceseq/nfce.entity';
+import { Cfop } from './cfop.entity';
+import { NotaDTO } from './nota.dto';
 
 @Injectable()
 export class NfceitemService {
@@ -94,6 +97,8 @@ export class NfceitemService {
 
             // console.log(resultNfped);
         }
+
+        return {cd_cfop:cd_cfop}
     }
 
     async buscarItemPedido(tentat: string, data : BuscaPvItemDTO) : Promise<Pvitem[]> {
@@ -221,6 +226,8 @@ export class NfceitemService {
                 it++;
             })            
         }
+
+        return {cd_cfop: cd_cfop}
         
     }
 
@@ -278,5 +285,31 @@ export class NfceitemService {
         
         return res[0] || null;
 
+    }
+
+    async atualizarNota(tenantId: string, data: NotaDTO){
+        const repositoryNfce: Repository<Nfce> = await getTenantRepository(tenantId, Nfce, this.getTenantDataSource);
+       
+        const repositoryCfop: Repository<Cfop> = await getTenantRepository(tenantId, Cfop, this.getTenantDataSource);
+        
+
+        const cfop = await repositoryCfop.findOne({
+            where: {
+                cd_cfop: data.cd_cfop
+            }
+        })
+
+        if(cfop && cfop.nm_cfop != ""){
+           repositoryNfce.update({
+            nr_nfce: data.nr_nfce,
+            cd_fil: data.cd_fil,
+            nr_serie: data.nr_serie
+           },{
+            cd_cfop: data.cd_cfop,
+            natoper: cfop.nm_cfop,
+            usuario: data.usuario,
+            cd_vend: data.cd_vend
+           })
+        }
     }
 }
