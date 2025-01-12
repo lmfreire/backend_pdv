@@ -50,4 +50,10 @@ export class Material {
     
     @Column()
     sn_kit: string;
+    
+    @Column()
+    sn_uso_nfce: string;
+    
+    @Column()
+    cd_cfop_nfce: string;
 }
